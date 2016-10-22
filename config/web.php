@@ -3,8 +3,8 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'vanhackathon',
-    'name' => 'Couse Builder',
+    'id' => 'course-builder',
+    'name' => 'Course Builder',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
