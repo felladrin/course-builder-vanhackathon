@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -26,6 +26,16 @@ class Upload extends ActiveRecord
     public static function tableName()
     {
         return 'upload';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
     }
 
     /**

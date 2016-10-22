@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -29,6 +29,16 @@ class Course extends ActiveRecord
     public static function tableName()
     {
         return 'course';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
     }
 
     /**
