@@ -11,8 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        This is a simple couse builder made during the VanHackathon of October 2016.<br/>
+        <?= Yii::powered() ?>.
     </p>
-
-    <code><?= __FILE__ ?></code>
 </div>
