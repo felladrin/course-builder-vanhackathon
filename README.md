@@ -3,6 +3,12 @@ Course Builder
 
 Just a simple course builder.
 
+## Requirements
+
+- Webserver with Apache or nginx that supports php >= 5.4
+- MySQL database
+- Composer
+
 ## Installation
 
 - Run 'composer install' in this project folder.
