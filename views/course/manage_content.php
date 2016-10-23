@@ -5,10 +5,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\widgets\ListView;
 
 $this->title = $model->name;
-//$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'My Courses', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss("
 table td.shrink {
@@ -34,13 +34,14 @@ table td.expand {
             <table class="table table-bordered">
                 <tr>
                     <th>Order</th>
-                    <th>Title</th>
+                    <th colspan="2">Title</th>
                     <th>Actions</th>
                 </tr>
                 <?php foreach ($model->getCourseChapters()->orderBy('order')->all() as $chapter): ?>
                     <tr>
                         <td class="shrink">#<?= $chapter->order ?></td>
                         <td class="expand"><?= $chapter->title ?></td>
+                        <td class="shrink"><?= Html::a('Manage', ['course-chapter/manage', 'id' => $chapter->id]) ?></td>
                         <td class="shrink">
                             <?= Html::a('<i class="glyphicon glyphicon-arrow-up" title="Move Up"></i>', ['course-chapter/move-up', 'id' => $chapter->id]) ?>
                             <?= Html::a('<i class="glyphicon glyphicon-arrow-down" title="Move Down"></i>', ['course-chapter/move-down', 'id' => $chapter->id]) ?>
@@ -56,34 +57,4 @@ table td.expand {
         <?= $form->field(new \app\models\CourseChapter(), 'title')->textInput(['maxlength' => true, 'placeholder' => 'Type a name and press enter!'])->label('Add Course Chapter:') ?>
         <?php ActiveForm::end(); ?>
     </div>
-
-    <?php
-    /*
-    ListView::widget([
-        'dataProvider' => $listDataProvider,
-        'options' => [
-            'tag' => 'div',
-            'class' => 'list-wrapper',
-            'id' => 'list-wrapper',
-        ],
-        'layout' => "{pager}\n{items}\n{summary}",
-        'itemView' => function ($model, $key, $index, $widget) {
-            return $this->render('_list_item',['model' => $model]);
-
-            // or just do some echo
-            // return $model->title . ' posted by ' . $model->author;
-        },
-        'itemOptions' => [
-            'tag' => false,
-        ],
-        'pager' => [
-            'firstPageLabel' => 'first',
-            'lastPageLabel' => 'last',
-            'nextPageLabel' => 'next',
-            'prevPageLabel' => 'previous',
-            'maxButtonCount' => 3,
-        ],
-    ]);
-    */
-    ?>
 </div>

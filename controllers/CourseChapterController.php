@@ -146,4 +146,28 @@ class CourseChapterController extends Controller
         }
         return $this->redirect(Yii::$app->request->referrer);
     }
+
+    public function actionManage($id) {
+        return $this->render('manage', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    public function actionGoPreviousChapter($id) {
+        $model = $this->findModel($id);
+        $previousModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order - 1));
+        if ($previousModel) {
+            return $this->redirect(['manage', 'id' => $previousModel->id]);
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionGoNextChapter($id) {
+        $model = $this->findModel($id);
+        $nextModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order + 1));
+        if ($nextModel) {
+            return $this->redirect(['manage', 'id' => $nextModel->id]);
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
 }
