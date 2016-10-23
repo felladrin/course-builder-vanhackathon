@@ -30,6 +30,18 @@ class User extends ActiveRecord implements IdentityInterface
         return 'user';
     }
 
+    const SCENARIO_UPDATE = 'update';
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_UPDATE] = ['name', 'email'];
+        return $scenarios;
+    }
+
     /**
      * @inheritdoc
      */

@@ -41,11 +41,11 @@ $user = Yii::$app->user->identity;
         'items' => [
             ['label' => 'Home', 'url' => Yii::$app->homeUrl],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'User', 'url' => ['/user/']],
-            ['label' => 'Course', 'url' => ['/course/']],
-            ['label' => 'Course Chapters', 'url' => ['/course-chapter/']],
-            ['label' => 'Course Chapters Content', 'url' => ['/course-chapter-content/']],
-            ['label' => 'Upload', 'url' => ['/upload/']],
+            ['label' => 'My Account', 'url' => ['/user/'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'My Courses', 'url' => ['/course/'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Course Chapters', 'url' => ['/course-chapter/']], // TODO: Remove
+            ['label' => 'Course Chapters Content', 'url' => ['/course-chapter-content/']], // TODO: Remove
+            ['label' => 'Upload', 'url' => ['/upload/']], // TODO: Remove
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
