@@ -1,7 +1,7 @@
 Course Builder
 ==============
 
-Just a simple course builder.
+Course Builder made during the VanHackathon (Oct 2016).
 
 ## Requirements
 
