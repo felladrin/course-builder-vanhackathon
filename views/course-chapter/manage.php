@@ -4,6 +4,7 @@
 /* @var $model \app\models\CourseChapter */
 /* @var $courseChapterContentModel \app\models\CourseChapterContent */
 
+use dosamigos\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -51,8 +52,11 @@ table td.expand {
 
         <?php $form = ActiveForm::begin(['action' => ['course-chapter-content/create', 'course_chapter_id' => $model->id]]); ?>
         <?= $form->field($courseChapterContentModel, 'title')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($courseChapterContentModel, 'content')->textarea(['rows' => 6]) ?>
-        <?= $form->field($courseChapterContentModel, 'url')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($courseChapterContentModel, 'content')->widget(CKEditor::className(), [
+            'options' => ['rows' => 6],
+            'preset' => 'basic'
+        ]) ?>
+        <?= $form->field($courseChapterContentModel, 'url')->textInput(['maxlength' => true, 'placeholder' => '(Opcional)'])->label('URL from Youtube') ?>
         <div class="form-group">
             <?= Html::submitButton('Add Content', ['class' => 'btn btn-success']) ?>
         </div>
