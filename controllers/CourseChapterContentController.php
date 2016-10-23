@@ -2,18 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\CourseChapterContent;
 use Yii;
-use app\models\CourseChapter;
+use app\models\CourseChapterContent;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CourseChapterController implements the CRUD actions for CourseChapter model.
+ * CourseChapterContentController implements the CRUD actions for CourseChapterContent model.
  */
-class CourseChapterController extends Controller
+class CourseChapterContentController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,13 +30,13 @@ class CourseChapterController extends Controller
     }
 
     /**
-     * Lists all CourseChapter models.
+     * Lists all CourseChapterContent models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => CourseChapter::find(),
+            'query' => CourseChapterContent::find(),
         ]);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class CourseChapterController extends Controller
     }
 
     /**
-     * Displays a single CourseChapter model.
+     * Displays a single CourseChapterContent model.
      * @param integer $id
      * @return mixed
      */
@@ -58,18 +57,18 @@ class CourseChapterController extends Controller
     }
 
     /**
-     * Creates a new CourseChapter model.
+     * Creates a new CourseChapterContent model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @param $course_id
+     * @param $course_chapter_id
      * @return mixed
      */
-    public function actionCreate($course_id)
+    public function actionCreate($course_chapter_id)
     {
-        $model = new CourseChapter();
+        $model = new CourseChapterContent();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->course_id = $course_id;
-            $model->order = CourseChapter::find()->where(['course_id' => $course_id])->count() + 1;
+            $model->course_chapter_id = $course_chapter_id;
+            $model->order = CourseChapterContent::find()->where(['course_chapter_id' => $course_chapter_id])->count() + 1;
 
             if ($model->save()) {
                 return $this->redirect(Yii::$app->request->referrer);
@@ -82,7 +81,7 @@ class CourseChapterController extends Controller
     }
 
     /**
-     * Updates an existing CourseChapter model.
+     * Updates an existing CourseChapterContent model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -92,7 +91,7 @@ class CourseChapterController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['course/manage-content', 'id' => $model->course_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -101,7 +100,7 @@ class CourseChapterController extends Controller
     }
 
     /**
-     * Deletes an existing CourseChapter model.
+     * Deletes an existing CourseChapterContent model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +112,15 @@ class CourseChapterController extends Controller
     }
 
     /**
-     * Finds the CourseChapter model based on its primary key value.
+     * Finds the CourseChapterContent model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CourseChapter the loaded model
+     * @return CourseChapterContent the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CourseChapter::findOne($id)) !== null) {
+        if (($model = CourseChapterContent::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -130,7 +129,7 @@ class CourseChapterController extends Controller
 
     public function actionMoveUp($id) {
         $model = $this->findModel($id);
-        $previousModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order - 1));
+        $previousModel = CourseChapterContent::findByChapterOrder($model->course_chapter_id, ($model->order - 1));
         if ($previousModel) {
             $previousModel->moveDown();
             $model->moveUp();
@@ -140,35 +139,10 @@ class CourseChapterController extends Controller
 
     public function actionMoveDown($id) {
         $model = $this->findModel($id);
-        $nextModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order + 1));
+        $nextModel = CourseChapterContent::findByChapterOrder($model->course_chapter_id, ($model->order + 1));
         if ($nextModel) {
             $nextModel->moveUp();
             $model->moveDown();
-        }
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    public function actionManage($id) {
-        return $this->render('manage', [
-            'model' => $this->findModel($id),
-            'courseChapterContentModel' => new CourseChapterContent()
-        ]);
-    }
-
-    public function actionGoPreviousChapter($id) {
-        $model = $this->findModel($id);
-        $previousModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order - 1));
-        if ($previousModel) {
-            return $this->redirect(['manage', 'id' => $previousModel->id]);
-        }
-        return $this->redirect(Yii::$app->request->referrer);
-    }
-
-    public function actionGoNextChapter($id) {
-        $model = $this->findModel($id);
-        $nextModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order + 1));
-        if ($nextModel) {
-            return $this->redirect(['manage', 'id' => $nextModel->id]);
         }
         return $this->redirect(Yii::$app->request->referrer);
     }

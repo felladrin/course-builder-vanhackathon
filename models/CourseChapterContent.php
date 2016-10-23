@@ -63,7 +63,7 @@ class CourseChapterContent extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'course_chapter_id' => 'course Chapter ID',
+            'course_chapter_id' => 'Course Chapter ID',
             'upload_id' => 'Upload ID',
             'title' => 'Title',
             'content' => 'Content',
@@ -85,8 +85,22 @@ class CourseChapterContent extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getcourseChapter()
+    public function getCourseChapter()
     {
         return $this->hasOne(CourseChapter::className(), ['id' => 'course_chapter_id']);
+    }
+
+    public static function findByChapterOrder($course_chapter_id, $order) {
+        return static::findOne(['course_chapter_id' => $course_chapter_id, 'order' => $order]);
+    }
+
+    public function moveUp() {
+        $this->order--;
+        $this->save();
+    }
+
+    public function moveDown() {
+        $this->order++;
+        $this->save();
     }
 }

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss("
 table td.shrink {
-    white-space:nowrap
+    white-space: nowrap
 }
 table td.expand {
     width: 99%
