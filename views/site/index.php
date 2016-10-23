@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $latestCourses \app\models\Course[] */
 
 use yii\bootstrap\Html;
 
@@ -19,30 +20,18 @@ $this->title = Yii::$app->name;
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Easy</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Fast</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Reliable</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-            </div>
+            <?php foreach ($latestCourses as $course): ?>
+                <?php $idOfFirstChapter = $course->getIdOfFirstChapter(); ?>
+                <?php if (empty($idOfFirstChapter)) continue; ?>
+                <div class="col-lg-4">
+                    <?= Html::beginTag('a', ['href' => \yii\helpers\Url::to(['course-chapter/view', 'id' => $idOfFirstChapter]), 'style' => 'text-decoration: none; color: #333;', 'title' => 'Click to know more about this course!']) ?>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="glyphicon glyphicon-new-window pull-right"></i> <?= $course->name ?></div>
+                            <div class="panel-body"><?= (strlen($course->description) > 200) ? substr($course->description, 0, 200) . '...' : $course->description ?></div>
+                        </div>
+                    <?= Html::endTag('a') ?>
+                </div>
+            <?php endforeach; ?>
         </div>
 
     </div>

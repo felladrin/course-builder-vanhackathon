@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Course;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -60,7 +61,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $latestCourses = Course::find()->orderBy('id DESC')->all();
+
+        return $this->render('index', [
+            'latestCourses' => $latestCourses
+        ]);
     }
 
     /**

@@ -53,7 +53,7 @@ class CourseChapterController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id)
         ]);
     }
 
@@ -128,7 +128,8 @@ class CourseChapterController extends Controller
         }
     }
 
-    public function actionMoveUp($id) {
+    public function actionMoveUp($id)
+    {
         $model = $this->findModel($id);
         $previousModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order - 1));
         if ($previousModel) {
@@ -138,7 +139,8 @@ class CourseChapterController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionMoveDown($id) {
+    public function actionMoveDown($id)
+    {
         $model = $this->findModel($id);
         $nextModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order + 1));
         if ($nextModel) {
@@ -148,27 +150,39 @@ class CourseChapterController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionManage($id) {
+    public function actionManage($id)
+    {
         return $this->render('manage', [
             'model' => $this->findModel($id),
             'courseChapterContentModel' => new CourseChapterContent()
         ]);
     }
 
-    public function actionGoPreviousChapter($id) {
+    public function actionGoPreviousChapter($id)
+    {
         $model = $this->findModel($id);
         $previousModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order - 1));
         if ($previousModel) {
-            return $this->redirect(['manage', 'id' => $previousModel->id]);
+            if (strpos(Yii::$app->request->referrer, 'manage') !== false) {
+                return $this->redirect(['manage', 'id' => $previousModel->id]);
+            }
+            else {
+                return $this->redirect(['view', 'id' => $previousModel->id]);
+            }
         }
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionGoNextChapter($id) {
+    public function actionGoNextChapter($id)
+    {
         $model = $this->findModel($id);
         $nextModel = CourseChapter::findByCourseOrder($model->course_id, ($model->order + 1));
         if ($nextModel) {
-            return $this->redirect(['manage', 'id' => $nextModel->id]);
+            if (strpos(Yii::$app->request->referrer, 'manage') !== false) {
+                return $this->redirect(['manage', 'id' => $nextModel->id]);}
+            else {
+                return $this->redirect(['view', 'id' => $nextModel->id]);
+            }
         }
         return $this->redirect(Yii::$app->request->referrer);
     }

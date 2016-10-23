@@ -89,4 +89,12 @@ class Course extends ActiveRecord
     {
         return $this->hasMany(CourseChapter::className(), ['course_id' => 'id']);
     }
+
+    public function getIdOfFirstChapter() {
+        $chapter = CourseChapter::findOne(['course_id' => $this->id, 'order' => 1]);
+        if (!empty($chapter)) {
+            return $chapter->id;
+        }
+        return null;
+    }
 }
