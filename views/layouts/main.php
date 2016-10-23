@@ -73,10 +73,19 @@ $user = Yii::$app->user->identity;
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
-        <p class="pull-right"><i class="glyphicon glyphicon-star small"></i> <?= Html::a('Fork me on GitHub', 'https://github.com/felladrin') ?> <i class="glyphicon glyphicon-star small"></i></p>
+        <p class="pull-right">
+            <?php
+            $randomFooter = [
+                '<a class="github-button" href="https://github.com/felladrin/course-builder-vanhackathon" data-icon="octicon-star" data-style="mega" data-count-href="/felladrin/course-builder-vanhackathon/stargazers" data-count-api="/repos/felladrin/course-builder-vanhackathon#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star felladrin/course-builder-vanhackathon on GitHub">Star</a>',
+                '<a class="github-button" href="https://github.com/felladrin/course-builder-vanhackathon/fork" data-icon="octicon-repo-forked" data-style="mega" data-count-href="/felladrin/course-builder-vanhackathon/network" data-count-api="/repos/felladrin/course-builder-vanhackathon#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork felladrin/course-builder-vanhackathon on GitHub">Fork</a>'
+            ];
+            echo $randomFooter[array_rand($randomFooter)];
+            ?>
+        </p>
     </div>
 </footer>
 
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 <?php $this->endBody() ?>
 </body>
 </html>

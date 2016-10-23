@@ -67,8 +67,8 @@ class Course extends ActiveRecord
             'name' => 'Name',
             'subtitle' => 'Subtitle',
             'description' => 'Description',
-            'price' => 'Price',
-            'duration' => 'Duration',
+            'price' => 'Price ($)',
+            'duration' => 'Duration (Hours)',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

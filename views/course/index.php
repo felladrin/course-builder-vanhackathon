@@ -25,7 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'subtitle',
             //'description:ntext',
             'price',
-            'duration',
+            [
+                'attribute' => 'duration',
+                'label' => 'Duration'
+            ],
+            [
+                'format' => 'raw',
+                'label' => '',
+                'value' => function ($model)
+                {
+                    return Html::a('Manage', ['manage-content', 'id' => $model->id]);
+                }
+            ],
             // 'created_at',
             // 'updated_at',
             ['class' => 'yii\grid\ActionColumn'],

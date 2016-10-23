@@ -10,8 +10,10 @@ $this->title = Yii::$app->name;
 
     <div class="jumbotron">
         <h1>Welcome!</h1>
-        <p class="lead">The right place to create your own course and share with the world!</p>
-        <p><?= Html::a('Sign Up', ['login'], ['class' => 'btn btn-success']) ?></p>
+        <p class="lead">The right place to build your own course and share with the world!</p>
+        <?php if (Yii::$app->user->isGuest): ?>
+            <p><?= Html::a('Sign Up', ['login'], ['class' => 'btn btn-success']) ?></p>
+        <?php endif; ?>
     </div>
 
     <div class="body-content">
