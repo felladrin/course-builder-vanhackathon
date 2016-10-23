@@ -103,4 +103,59 @@ class CourseChapterContent extends ActiveRecord
         $this->order++;
         $this->save();
     }
+
+    /**
+     * Get Youtube video ID from URL
+     *
+     * @param string $url
+     * @return string|null Youtube video ID or NULL if not found.
+     */
+    public static function getYoutubeIdFromUrl($url)
+    {
+        if (empty($url)) return null;
+
+        $parts = parse_url($url);
+
+        if (isset($parts['query']))
+        {
+            parse_str($parts['query'], $qs);
+
+            if (isset($qs['v']))
+            {
+                return $qs['v'];
+            }
+            else if (isset($qs['vi']))
+            {
+                return $qs['vi'];
+            }
+        }
+
+        if (isset($parts['path']))
+        {
+            $path = explode('/', trim($parts['path'], '/'));
+            return $path[count($path) - 1];
+        }
+
+        return null;
+    }
+
+    /**
+     * Receives any form of youtube url and returns the default one (like "https://www.youtube.com/watch?v=Sagg08DrO5U")
+     *
+     * @param string $url
+     * @return string The youtube default URL if it was an youtube video. Null otherwise.
+     */
+    public static function getYoutubeDefaultUrl($url)
+    {
+        if (empty($url)) return null;
+
+        $youtubeId = static::getYoutubeIdFromUrl($url);
+
+        if (!empty($youtubeId))
+        {
+            return "https://www.youtube.com/watch?v=" . static::getYoutubeIdFromUrl($url);
+        }
+
+        return null;
+    }
 }

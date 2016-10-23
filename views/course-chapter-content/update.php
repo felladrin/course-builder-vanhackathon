@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -7,8 +8,8 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\CourseChapterContent */
 
 $this->title = 'Update Course Chapter Content';
-$this->params['breadcrumbs'][] = ['label' => 'Course Chapter Contents', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->courseChapter->course->name, 'url' => ['course/manage-content', 'id' => $model->courseChapter->course->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Chapter ' . $model->course_chapter_id, 'url' => ['course-chapter/manage', 'id' => $model->course_chapter_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="course-chapter-content-update">
@@ -21,9 +22,12 @@ $this->params['breadcrumbs'][] = 'Update';
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'content')->widget(CKEditor::className(), [
+            'options' => ['rows' => 6],
+            'preset' => 'basic'
+        ]) ?>
 
-        <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'url')->textInput(['maxlength' => true])->label('URL from Youtube') ?>
 
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

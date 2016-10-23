@@ -20,6 +20,20 @@ table td.shrink {
 table td.expand {
     width: 99%
 }
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 ");
 ?>
 <div class="manage-content">
@@ -44,6 +58,13 @@ table td.expand {
             </div>
             <h3><?= $courseChapterContent->title ?></h3>
             <div><?= $courseChapterContent->content ?></div>
+            <?php $youtubeUrl = \app\models\CourseChapterContent::getYoutubeIdFromUrl($courseChapterContent->url); ?>
+            <?php if (!empty($youtubeUrl)): ?>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $youtubeUrl ?>" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <?php endif;
+            ?>
         </div>
     <?php endforeach; ?>
 

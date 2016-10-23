@@ -91,7 +91,7 @@ class CourseChapterContentController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['course-chapter/manage', 'id' => $model->course_chapter_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
