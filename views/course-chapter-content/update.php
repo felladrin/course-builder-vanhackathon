@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = 'Update';
             'preset' => 'basic'
         ]) ?>
 
-        <?= $form->field($model, 'url')->textInput(['maxlength' => true])->label('URL from Youtube') ?>
+        <?= $form->field($model, 'url')->textInput(['maxlength' => true, 'placeholder' => '(Optional)'])->label('URL from Youtube') ?>
 
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

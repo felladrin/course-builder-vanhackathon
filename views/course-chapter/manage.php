@@ -77,7 +77,7 @@ table td.expand {
             'options' => ['rows' => 6],
             'preset' => 'basic'
         ]) ?>
-        <?= $form->field($courseChapterContentModel, 'url')->textInput(['maxlength' => true, 'placeholder' => '(Opcional)'])->label('URL from Youtube') ?>
+        <?= $form->field($courseChapterContentModel, 'url')->textInput(['maxlength' => true, 'placeholder' => '(Optional)'])->label('URL from Youtube') ?>
         <div class="form-group">
             <?= Html::submitButton('Add Content', ['class' => 'btn btn-success']) ?>
         </div>
