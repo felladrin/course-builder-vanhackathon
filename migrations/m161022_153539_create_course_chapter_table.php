@@ -19,25 +19,25 @@ class m161022_153539_create_course_chapter_table extends Migration
 
         $this->createTable('course_chapter', [
             'id' => $this->primaryKey(),
-            'couse_id' => $this->integer()->notNull(),
+            'course_id' => $this->integer()->notNull(),
             'title' => $this->string()->notNull(),
             'order' => $this->smallInteger(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
         ], $tableOptions);
 
-        // creates index for column `couse_id`
+        // creates index for column `course_id`
         $this->createIndex(
-            'idx-course_chapter-couse_id',
+            'idx-course_chapter-course_id',
             'course_chapter',
-            'couse_id'
+            'course_id'
         );
 
         // add foreign key for table `course`
         $this->addForeignKey(
-            'fk-course_chapter-couse_id',
+            'fk-course_chapter-course_id',
             'course_chapter',
-            'couse_id',
+            'course_id',
             'course',
             'id',
             'CASCADE'
@@ -51,13 +51,13 @@ class m161022_153539_create_course_chapter_table extends Migration
     {
         // drops foreign key for table `course`
         $this->dropForeignKey(
-            'fk-course_chapter-couse_id',
+            'fk-course_chapter-course_id',
             'course_chapter'
         );
 
-        // drops index for column `couse_id`
+        // drops index for column `course_id`
         $this->dropIndex(
-            'idx-course_chapter-couse_id',
+            'idx-course_chapter-course_id',
             'course_chapter'
         );
 

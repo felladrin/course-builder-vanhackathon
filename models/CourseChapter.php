@@ -9,13 +9,13 @@ use yii\db\ActiveRecord;
  * This is the model class for table "course_chapter".
  *
  * @property integer $id
- * @property integer $couse_id
+ * @property integer $course_id
  * @property string $title
  * @property integer $order
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property Course $couse
+ * @property Course $course
  * @property CourseChapterContent[] $courseChapterContents
  */
 class CourseChapter extends ActiveRecord
@@ -44,10 +44,10 @@ class CourseChapter extends ActiveRecord
     public function rules()
     {
         return [
-            [['couse_id', 'title'], 'required'],
-            [['couse_id', 'order', 'created_at', 'updated_at'], 'integer'],
+            [['course_id', 'title'], 'required'],
+            [['course_id', 'order', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
-            [['couse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['couse_id' => 'id']],
+            [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['course_id' => 'id']],
         ];
     }
 
@@ -58,7 +58,7 @@ class CourseChapter extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'couse_id' => 'Couse ID',
+            'course_id' => 'course ID',
             'title' => 'Title',
             'order' => 'Order',
             'created_at' => 'Created At',
@@ -69,9 +69,9 @@ class CourseChapter extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCouse()
+    public function getcourse()
     {
-        return $this->hasOne(Course::className(), ['id' => 'couse_id']);
+        return $this->hasOne(Course::className(), ['id' => 'course_id']);
     }
 
     /**
@@ -79,6 +79,25 @@ class CourseChapter extends ActiveRecord
      */
     public function getCourseChapterContents()
     {
-        return $this->hasMany(CourseChapterContent::className(), ['couse_chapter_id' => 'id']);
+        return $this->hasMany(CourseChapterContent::className(), ['course_chapter_id' => 'id']);
+    }
+
+    /**
+     * @param $course_id
+     * @param $order
+     * @return static
+     */
+    public static function findByCourseOrder($course_id, $order) {
+        return static::findOne(['course_id' => $course_id, 'order' => $order]);
+    }
+
+    public function moveUp() {
+        $this->order--;
+        $this->save();
+    }
+
+    public function moveDown() {
+        $this->order++;
+        $this->save();
     }
 }

@@ -87,6 +87,6 @@ class Course extends ActiveRecord
      */
     public function getCourseChapters()
     {
-        return $this->hasMany(CourseChapter::className(), ['couse_id' => 'id']);
+        return $this->hasMany(CourseChapter::className(), ['course_id' => 'id']);
     }
 }

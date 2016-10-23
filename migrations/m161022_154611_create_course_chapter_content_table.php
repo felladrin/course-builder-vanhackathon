@@ -20,7 +20,7 @@ class m161022_154611_create_course_chapter_content_table extends Migration
 
         $this->createTable('course_chapter_content', [
             'id' => $this->primaryKey(),
-            'couse_chapter_id' => $this->integer()->notNull(),
+            'course_chapter_id' => $this->integer()->notNull(),
             'upload_id' => $this->integer(),
             'title' => $this->string()->notNull(),
             'content' => $this->text(),
@@ -30,18 +30,18 @@ class m161022_154611_create_course_chapter_content_table extends Migration
             'updated_at' => $this->integer(),
         ], $tableOptions);
 
-        // creates index for column `couse_chapter_id`
+        // creates index for column `course_chapter_id`
         $this->createIndex(
-            'idx-course_chapter_content-couse_chapter_id',
+            'idx-course_chapter_content-course_chapter_id',
             'course_chapter_content',
-            'couse_chapter_id'
+            'course_chapter_id'
         );
 
         // add foreign key for table `course_chapter`
         $this->addForeignKey(
-            'fk-course_chapter_content-couse_chapter_id',
+            'fk-course_chapter_content-course_chapter_id',
             'course_chapter_content',
-            'couse_chapter_id',
+            'course_chapter_id',
             'course_chapter',
             'id',
             'CASCADE'
@@ -72,13 +72,13 @@ class m161022_154611_create_course_chapter_content_table extends Migration
     {
         // drops foreign key for table `course_chapter`
         $this->dropForeignKey(
-            'fk-course_chapter_content-couse_chapter_id',
+            'fk-course_chapter_content-course_chapter_id',
             'course_chapter_content'
         );
 
-        // drops index for column `couse_chapter_id`
+        // drops index for column `course_chapter_id`
         $this->dropIndex(
-            'idx-course_chapter_content-couse_chapter_id',
+            'idx-course_chapter_content-course_chapter_id',
             'course_chapter_content'
         );
 

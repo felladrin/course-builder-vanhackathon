@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is a simple couse builder made during the VanHackathon of October 2016.<br/>
+        This is a simple course builder made during the VanHackathon of October 2016.<br/>
         <?= Yii::powered() ?>.
     </p>
 </div>

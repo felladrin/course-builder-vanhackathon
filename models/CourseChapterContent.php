@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "course_chapter_content".
  *
  * @property integer $id
- * @property integer $couse_chapter_id
+ * @property integer $course_chapter_id
  * @property integer $upload_id
  * @property string $title
  * @property string $content
@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $updated_at
  *
  * @property Upload $upload
- * @property CourseChapter $couseChapter
+ * @property CourseChapter $courseChapter
  */
 class CourseChapterContent extends ActiveRecord
 {
@@ -47,12 +47,12 @@ class CourseChapterContent extends ActiveRecord
     public function rules()
     {
         return [
-            [['couse_chapter_id', 'title'], 'required'],
-            [['couse_chapter_id', 'upload_id', 'order', 'created_at', 'updated_at'], 'integer'],
+            [['course_chapter_id', 'title'], 'required'],
+            [['course_chapter_id', 'upload_id', 'order', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['title', 'url'], 'string', 'max' => 255],
             [['upload_id'], 'exist', 'skipOnError' => true, 'targetClass' => Upload::className(), 'targetAttribute' => ['upload_id' => 'id']],
-            [['couse_chapter_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseChapter::className(), 'targetAttribute' => ['couse_chapter_id' => 'id']],
+            [['course_chapter_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseChapter::className(), 'targetAttribute' => ['course_chapter_id' => 'id']],
         ];
     }
 
@@ -63,7 +63,7 @@ class CourseChapterContent extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'couse_chapter_id' => 'Couse Chapter ID',
+            'course_chapter_id' => 'course Chapter ID',
             'upload_id' => 'Upload ID',
             'title' => 'Title',
             'content' => 'Content',
@@ -85,8 +85,8 @@ class CourseChapterContent extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCouseChapter()
+    public function getcourseChapter()
     {
-        return $this->hasOne(CourseChapter::className(), ['id' => 'couse_chapter_id']);
+        return $this->hasOne(CourseChapter::className(), ['id' => 'course_chapter_id']);
     }
 }

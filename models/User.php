@@ -177,4 +177,8 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return null; // Not used.
     }
+
+    public function isOwnerOfCourse($course_id) {
+        return Course::find()->where(['id' => $course_id, 'user_id' => Yii::$app->user->id])->count() > 0;
+    }
 }
